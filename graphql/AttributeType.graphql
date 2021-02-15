@@ -1,0 +1,22 @@
+type AttributeType {
+    id: ID!
+    active: Boolean!
+    description: String!
+}
+
+
+input CreateAttributeType {
+    id: ID
+    active: Boolean!
+    description: String!
+}
+
+extend type Query {
+    AttributeTypesAll: [AttributeType!]! @all
+    AttributeTypes(where: _ @whereConditions(columns: ["description"]),
+        orderBy: _ @orderBy(columns: ["id","description"])): [AttributeType!]! @paginate
+    AttributeType(id: String @eq): AttributeType @find
+}
+extend type Mutation {
+    updateOrCreateAttributeType(input: CreateAttributeType! @spread): AttributeType @upsert
+}

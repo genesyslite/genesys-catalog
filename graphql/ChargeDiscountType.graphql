@@ -1,0 +1,49 @@
+type ChargeDiscountType {
+    id: ID!
+    active: Boolean!
+    base: Boolean!
+    level: String!
+    type: String!
+    description: String!
+}
+
+type Discount {
+    discount_type_id: Int
+    discount_type: ChargeDiscountType
+    description: String
+    percentage: Float
+    factor: Float
+    amount: Float
+    base: Float
+}
+type Charge {
+    charge_type_id: Int
+    discount_type: ChargeDiscountType
+    charge_type: String
+    percentage: Float
+    factor: Float
+    amount: Float
+    base: Float
+}
+
+input CreateChargeDiscountType {
+    id: ID
+    active: Boolean!
+    base: Boolean!
+    level: String!
+    type: String!
+    description: String!
+}
+
+extend type Query {
+    ChargeDiscountTypesAll(
+        whereType: String @scope(name: "whereType"),
+        whereLevel: String @scope(name: "whereLevel")
+    ): [ChargeDiscountType!]! @all
+    ChargeDiscountTypes(where: _ @whereConditions(columns: ["description"]),
+        orderBy: _ @orderBy(columns: ["id","description"])): [ChargeDiscountType!]! @paginate
+    ChargeDiscountType(id: String @eq): ChargeDiscountType @find
+}
+extend type Mutation {
+    updateOrCreateChargeDiscountType(input: CreateChargeDiscountType! @spread): ChargeDiscountType @upsert
+}

@@ -1,0 +1,23 @@
+type PaymentMethodType {
+    id: ID!
+    description: String!
+    has_card: Boolean!
+    charge: String
+    number_days: String
+}
+
+
+input CreatePaymentMethodType {
+    id: ID
+    name: String!
+}
+
+extend type Query {
+    PaymentMethodTypesAll: [PaymentMethodType!]! @all
+    PaymentMethodTypes(where: _ @whereConditions(columns: ["description"]),
+        orderBy: _ @orderBy(columns: ["id","description"])): [PaymentMethodType!]! @paginate
+    PaymentMethodType(id: String @eq): PaymentMethodType @find
+}
+extend type Mutation {
+    updateOrCreatePaymentMethodType(input: CreatePaymentMethodType! @spread): PaymentMethodType @upsert
+}

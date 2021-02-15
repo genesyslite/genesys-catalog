@@ -1,0 +1,18 @@
+type AffectationIgvType {
+    id: ID!
+    active: Boolean!
+    exportation: Boolean!
+    free: Boolean!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+extend type Query {
+    AffectationIgvTypesAll: [AffectationIgvType!]! @all
+    AffectationIgvTypes(where: _ @whereConditions(columns: ["description"]),
+        orderBy: _ @orderBy(columns: ["id","description","created_at"])): [AffectationIgvType!]!
+    @paginate(defaultCount: 10) @guard
+
+    AffectationIgvType(id: ID @eq): AffectationIgvType @find
+}

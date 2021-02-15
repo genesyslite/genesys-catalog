@@ -1,0 +1,11 @@
+type SoapSend {
+    id: ID!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+extend type Query {
+    SoapSends(where: _ @whereConditions(columns: ["description"]), orderBy: _ @orderBy(columns: ["created_at"])): [SoapSend!]! @paginate(defaultCount: 10)
+    SoapSend(id: ID @eq): SoapSend @find
+}

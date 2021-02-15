@@ -17,6 +17,10 @@ class GenesysCatalogServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/genesysCatalog.php',
             'GenesysCatalog'
         );
+
+        $this->publishes([
+            __DIR__.'/../../graphql' => base_path('/graphql/GenesysCatalog'),
+        ], 'genesys-catalog-schema');
     }
 
     /**

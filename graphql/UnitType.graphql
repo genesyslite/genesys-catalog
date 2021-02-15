@@ -1,0 +1,15 @@
+type UnitType {
+    id: ID!
+    active: Boolean!
+    symbol: String
+    description: String!
+    created_at: DateTime
+    updated_at: DateTime
+}
+
+extend type Query {
+    UnitTypesAll: [UnitType!]! @all
+    UnitTypes(where: _ @whereConditions(columns: ["description"]), orderBy: _ @orderBy(columns: ["created_at"])): [UnitType!]! @paginate(defaultCount: 10) @guard
+
+    UnitType(id: ID @eq): UnitType @find
+}

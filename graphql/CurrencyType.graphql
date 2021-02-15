@@ -1,0 +1,16 @@
+type CurrencyType {
+    id: ID!
+    active: Boolean!
+    symbol: String!
+    description: String!
+}
+
+
+extend type Query {
+    CurrencyTypesAll: [CurrencyType!]! @all
+    CurrencyTypes(where: _ @whereConditions(columns: ["description"]),
+        orderBy: _ @orderBy(columns: ["id","description"])): [CurrencyType!]! @paginate(defaultCount: 10) @guard
+
+    CurrencyType(id: ID @eq): CurrencyType @find
+
+}

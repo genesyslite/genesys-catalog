@@ -1,0 +1,12 @@
+type OperationType {
+    id: ID!
+    active: Boolean!
+    exportation: String!
+    description: String!
+}
+
+extend type Query {
+    OperationTypes(where: _ @whereConditions(columns: ["active"]), orderBy: _ @orderBy(columns: ["id"])): [OperationType!]! @paginate(defaultCount: 10)
+    OperationTypesAll(where: _ @whereConditions(columns: ["active"])): [OperationType!]! @all
+    OperationType(id: ID @eq): OperationType @find
+}

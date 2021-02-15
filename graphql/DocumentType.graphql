@@ -1,0 +1,15 @@
+type DocumentType {
+    id: ID!
+    active: Boolean!
+    short: String
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+
+extend type Query {
+    DocumentTypesAll: [DocumentType!]! @all
+    DocumentTypes: [DocumentType!]! @all
+    DocumentType(id: ID @eq): DocumentType @find
+}

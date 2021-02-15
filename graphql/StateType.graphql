@@ -1,0 +1,11 @@
+type StateType {
+    id: ID!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+extend type Query {
+    StateTypes: [StateType!]! @all
+    StateType(id: ID @eq): StateType @find
+}

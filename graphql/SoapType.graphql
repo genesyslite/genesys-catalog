@@ -1,0 +1,11 @@
+type SoapType {
+    id: String!
+    description: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+extend type Query {
+    SoapTypes(where: _ @whereConditions(columns: ["description"]), orderBy: _ @orderBy(columns: ["created_at"])): [SoapType!]! @paginate(defaultCount: 10)
+    SoapType(id: ID @eq): SoapType @find
+}

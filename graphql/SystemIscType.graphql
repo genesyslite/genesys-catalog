@@ -1,0 +1,12 @@
+type SystemIscType {
+    id: ID!
+    active: Boolean!
+    description: String!
+}
+extend type Query {
+    SystemIscTypesAll: [SystemIscType!]! @all
+    SystemIscTypes(where: _ @whereConditions(columns: ["id","description"]),
+        orderBy: _ @orderBy(columns: ["id","description"])): [SystemIscType!]! @paginate(defaultCount: 10) @guard
+
+    SystemIscType(id: ID @eq): SystemIscType @find
+}
